@@ -54,6 +54,23 @@ aside {
         grid-template-areas: 
         "logo search widget"
         "logo shortcuts widget"
+        "logo feed widget";
+        grid-template-columns: minmax(100px, 200px) 1fr minmax(100px, 200px);
+    /* grid-template-areas: "logo content widget"; */
+
+    }
+    .aside-right {
+        /* order: 3; */
+        margin-inline-start: 0;
+    }
+}
+
+@media (min-width: 1600px) {
+    .container {
+        /* flex-wrap: nowrap; */
+        grid-template-areas: 
+        "logo search widget"
+        "logo shortcuts widget"
         "feed feed feed";
         grid-template-columns: minmax(100px, 200px) 1fr minmax(100px, 200px);
     /* grid-template-areas: "logo content widget"; */
