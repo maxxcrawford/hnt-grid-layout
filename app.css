@@ -10,24 +10,15 @@ body {
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+}
+
+.hidden {
+    display: none !important;
 }
 
 aside, main {
     min-height: 200px;
-}
-
-.container {
-    padding: 16px;
-    display: grid;
-    gap: 16px;
-    /* flex-wrap: wrap; */
-    min-width: 100%;
-    grid-template-columns: minmax(100px, 200px) 1fr;
-
-    grid-template-areas: 
-        "logo widget"
-        "content content";
-
 }
 
 aside {
@@ -36,22 +27,144 @@ aside {
     flex-shrink: 0;
 }
 
-
 .aside-left {
     grid-area: logo;
-    order: 1;
 }
 
 .aside-right {
     grid-area: widget;
-    margin-inline-start: auto;
-    order: 2;
+    /* margin-inline-start: auto; */
+    padding: 16px;
 }
 
-main {
-    grid-area: content;
-    flex-grow: 3;
-    order: 3;
+.container-width {
+    border: 1px solid green;
+}
+
+/* Features */
+
+.no-search .search {
+        display: none;
+    }
+
+/* Layout */
+
+.container {
+    padding: 16px;
+    display: grid;
+    gap: 16px;
+    min-width: 100%;
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-areas: 
+        "logo search widget"
+        "logo shortcuts widget"
+        "logo feed widget"; */
+    /* grid-template-columns: minmax(100px, 200px) 1fr; */
+    grid-template-areas: 
+    
+        /* "logo widget-weather"
+        "widget-widget widget-widget"
+        "widget-tall widget-tall" */
+        "logo logo"
+        "widget widget"
+        "search search"
+        "shortcuts shortcuts"
+        "feed feed";
+}
+
+@media (min-width: 600px) {
+    .container {
+        grid-template-areas: 
+        "logo widget"
+        "search search"
+        "shortcuts shortcuts"
+        "feed feed";
+
+    }
+    
+}
+
+@media (min-width: 900px) {
+    .container {
+        grid-template-areas: 
+        "logo search widget"
+        "logo shortcuts widget"
+        "logo feed widget";
+        grid-template-columns: minmax(100px, 200px) 1fr minmax(100px, 200px);
+
+    }
+    .aside-right {
+        margin-inline-start: 0;
+    }
+    
+}
+
+@media (min-width: 1600px) {
+    
+
+    .no-search .container {
+        grid-template-areas: 
+        "logo shortcuts widget"
+        "logo feed widget";
+    }
+
+    
+
+    .var-a.container {
+        grid-template-areas: 
+        "widget search logo"
+        "widget shortcuts logo"
+        "widget feed logo";
+    }
+}
+
+
+.feed {
+    grid-area: feed;
+}
+
+.weather {
+    height: 50px;
+    margin-block-end: 1rem;
+    grid-area: widget-weather;
+    width: 100%;
+}
+
+.widget {
+    width: 100%;
+    height: 75px;
+    margin-block-end: 1rem;
+    grid-area: widget-widget;
+}
+
+.widget-tall {
+    width: 100%;
+    height: 250px;
+    margin-block-end: 1rem;
+    grid-area: widget-tall;
+}
+
+.search {
+    grid-area: search;
+    max-width: 1400px;
+}
+
+.search-input {
+    max-width: 720px;
+    width: 100%;
+    padding: 16px;
+    margin-inline: auto;
+    display: block;
+    margin-bottom: 16px;
+    height: 52px;
+}
+
+.new-section {
+    grid-area: new;
+}
+
+.tiles {
+    grid-area: shortcuts;
 }
 
 .box {
@@ -61,7 +174,7 @@ main {
 .label {
     display: block;
     text-align: center;
-    margin-block: 1rem;
+    padding-block: 1rem;
     font-weight: bold;
 }
 
@@ -79,60 +192,36 @@ main {
 
 .cards {
     display: grid;
-    /* grid-template-columns: 1fr; */
     grid-template-columns: repeat(auto-fill, 300px);
     gap: 16px;
     align-content: center;
     justify-content: center;
     padding: 16px;
+    margin-inline: auto;
+    max-width: 1280px;
+    width: 100%;
+    container-type: inline-size;
 }
 
-@media (min-width: 660px) {
-    .cards {
-      /* grid-template-columns: repeat(4, 300px); */
-      
-
-    }
+.shortcut {
+    width: 120px;
+    height: 120px;
+    outline: 1px solid green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@media (min-width: 800px) {
-    .container {
-        /* flex-wrap: nowrap; */
-        grid-template-areas: 
-            "logo content widget";
-        grid-template-columns: minmax(100px, 200px) 1fr minmax(100px, 200px);
-    /* grid-template-areas: "logo content widget"; */
-
-    }
-    aside, main  {
-        min-height: 80vh;
-    }
-    main {
-        order: 2;
-    }
-    .aside-right {
-        /* order: 3; */
-        margin-inline-start: 0;
-    }
+.shortcuts {
+    width: 100%;
+    container-type: inline-size;
+    max-width: 960px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 120px);
+    align-content: center;
+    justify-content: center;
+    padding: 16px;
+    gap: 16px;
+    margin-bottom: 16px;
 }
-
-@media (min-width: 900px) {
-    
-  .cards {
-    /* grid-template-columns: 1fr 1fr; */
-}
-  
-}
-
-@media (min-width: 1200px) {
-    .cards {
-        /* grid-template-columns: 1fr 1fr 1fr; */
-    }
-}
-
-@media (min-width: 1600px) {
-    .cards {
-        /* grid-template-columns: 1fr 1fr 1fr 1fr; */
-    }
-}
-
