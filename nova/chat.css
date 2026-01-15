@@ -1,0 +1,116 @@
+:root {
+  --grid-gap: 12px;
+}
+
+/* Outer grid = usable + guardrails */
+.grid {
+  /* XS defaults */
+  --cols: 8;     /* total columns (usable + guardrails) */
+  --usable: 4;   /* usable columns */
+
+  display: grid;
+  gap: var(--grid-gap);
+  grid-template-columns: repeat(var(--cols), 1fr);
+
+  max-width: 3200px; /* optional */
+  margin-inline: auto;
+}
+
+/* Content rail occupies usable area, and becomes a query container */
+.grid__content {
+  grid-column: 3 / -3; /* skip 2 guard columns each side */
+
+  display: grid;
+  gap: var(--grid-gap);
+  grid-template-columns: repeat(var(--usable), 1fr);
+
+  /* Enables @container rules */
+  container-type: inline-size;
+}
+
+/* =========================
+   Breakpoints (all min-width)
+   ========================= */
+
+/* S ≥ 1024px → 12 total, 8 usable */
+@media (min-width: 1024px) {
+  .grid { --cols: 12; --usable: 8; }
+}
+
+/* M ≥ 1366px → 16 total, 12 usable */
+@media (min-width: 1366px) {
+  .grid { --cols: 16; --usable: 12; }
+}
+
+/* L ≥ 1920px → 22 total, 18 usable */
+@media (min-width: 1920px) {
+  .grid { --cols: 22; --usable: 18; }
+}
+
+/* XL ≥ 2650px → 30 total, 26 usable */
+@media (min-width: 2650px) {
+  .grid { --cols: 30; --usable: 26; }
+}
+
+/* =========================
+   Spans
+   ========================= */
+
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-8  { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+.col-18 { grid-column: span 18; }
+.col-26 { grid-column: span 26; }
+
+/* Heights (per spec) */
+.h-1 { height: 60px; }
+.h-2 { height: 132px; }
+.h-4 { height: 276px; }
+
+/* =========================
+   WRAP BEHAVIOR (clamp spans by container size)
+   This is what prevents "squishing"
+   ========================= */
+
+/* XS container: usable = 4
+   Any item wider than 4 cols becomes 4 cols */
+@container (max-width: 1023px) {
+  .col-8, .col-12, .col-18, .col-26 { grid-column: span 4; }
+}
+
+/* S container: usable = 8
+   Anything wider than 8 becomes 8 */
+@container (min-width: 1024px) and (max-width: 1365px) {
+  .col-12, .col-18, .col-26 { grid-column: span 8; }
+}
+
+/* M container: usable = 12
+   Anything wider than 12 becomes 12 */
+@container (min-width: 1366px) and (max-width: 1919px) {
+  .col-18, .col-26 { grid-column: span 12; }
+}
+
+/* L container: usable = 18
+   Anything wider than 18 becomes 18 */
+@container (min-width: 1920px) and (max-width: 2649px) {
+  .col-26 { grid-column: span 18; }
+}
+
+/* =========================
+   Demo styling (optional)
+   ========================= */
+
+.module {
+  background: #eaeaea;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 600 14px system-ui, sans-serif;
+}
+
+.module--search { background: #d0ebff; }
+.module--ad     { background: #ffe8cc; }
